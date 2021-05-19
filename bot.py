@@ -6,15 +6,17 @@ from selenium.webdriver.support import expected_conditions as EC
 import info
 
 # make sure this path is correct
-PATH = "C:\Program Files (x86)\ChromeDriver\chromedriver.exe"
+PATH = "/pathTo/chromedriver"
 
 driver = webdriver.Chrome(PATH)
 
 RTX3070LINK1 = "https://www.bestbuy.com/site/nvidia-geforce-rtx-3070-8gb-gddr6-pci-express-4-0-graphics-card-dark-platinum-and-black/6429442.p?skuId=6429442"
 RTX3070LINK2 = "https://www.bestbuy.com/site/gigabyte-geforce-rtx-3070-8g-gddr6-pci-express-4-0-graphics-card-black/6437912.p?skuId=6437912"
 XBOXONETEST = "https://www.bestbuy.com/site/microsoft-xbox-one-s-1tb-console-bundle-white/6415222.p?skuId=6415222"
+RX580 = "https://www.bestbuy.com/site/xfx-amd-radeon-rx-580-gts-black-edition-8gb-gddr5-pci-express-3-0-graphics-card-black/6092641.p?skuId=6092641"
+AIRPODS = "https://www.bestbuy.com/site/apple-airpods-pro-white/5706659.p?skuId=5706659";
 
-driver.get(RTX3070LINK1)
+driver.get(AIRPODS)
 
 isComplete = False
 
@@ -38,7 +40,8 @@ while not isComplete:
         driver.get("https://www.bestbuy.com/cart")
 
         checkoutBtn = WebDriverWait(driver, 10).until(
-            EC.presence_of_element_located((By.XPATH, "/html/body/div[1]/main/div/div[2]/div[1]/div/div/span/div/div[2]/div[1]/section[2]/div/div/div[3]/div/div[1]/button"))
+            #EC.presence_of_element_located((By.XPATH, "/html/body/div[1]/main/div/div[2]/div[1]/div/div/span/div/div[2]/div[1]/section[2]/div/div/div[3]/div/div[1]/button"))
+            EC.presence_of_element_located((By.CSS_SELECTOR, ".checkout-buttons__checkout .btn-primary"))
         )
         checkoutBtn.click()
         print("Successfully added to cart - beginning check out")
@@ -56,11 +59,11 @@ while not isComplete:
 
         # click sign in button
         signInBtn = WebDriverWait(driver, 10).until(
-            EC.presence_of_element_located((By.XPATH, "/html/body/div[1]/div/section/main/div[1]/div/div/div/div/form/div[3]/button"))
+            EC.presence_of_element_located((By.CSS_SELECTOR, ".cia-form__controls__submit"))
         )
         signInBtn.click()
         print("Signing in")
-
+        
         # fill in card cvv
         cvvField = WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.ID, "credit-card-cvv"))
@@ -74,10 +77,11 @@ while not isComplete:
         )
         placeOrderBtn.click()
 
+
         isComplete = True
     except:
         # make sure this link is the same as the link passed to driver.get() before looping
-        driver.get(RTX3070LINK1)
+        driver.get(AIRPODS)
         print("Error - restarting bot")
         continue
 
