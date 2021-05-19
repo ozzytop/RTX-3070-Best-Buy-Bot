@@ -1,5 +1,7 @@
-# RTX 3070 Best Buy Bot
+# Best Buy Bot
 
+## Forked project
+Forked to fix the bot.
 ## Features
 - Refreshes link until "Add to Cart" button is available
 - Automate entire checkout process

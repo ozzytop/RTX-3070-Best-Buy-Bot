@@ -6,7 +6,7 @@ from selenium.webdriver.support import expected_conditions as EC
 import info
 
 # make sure this path is correct
-PATH = "/pathTo/chromedriver"
+PATH = "/pathTOfile/chromedriver"
 
 driver = webdriver.Chrome(PATH)
 
@@ -23,6 +23,12 @@ isComplete = False
 while not isComplete:
     # find add to cart button
     try:
+        
+        landingBtn = WebDriverWait(driver, 10).until(
+            EC.element_to_be_clickable((By.CSS_SELECTOR, ".us-link"))
+        )
+        landingBtn.click()
+        
         atcBtn = WebDriverWait(driver, 10).until(
             EC.element_to_be_clickable((By.CSS_SELECTOR, ".add-to-cart-button"))
         )
